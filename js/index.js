@@ -4,9 +4,16 @@ for(let i=0; i<escudos.length; i++) {
     escudosDuplicados.push(escudos[i]);
     escudosDuplicados.push(escudos[i]);
 }
-const escudosAleatorios = mezclarArray(escudosDuplicados);
+let escudosAleatorios = []
 
 document.querySelector('#comenzar').onclick = comenzarJuego;
+
+let primeraFicha = null;
+let segundaFicha = null;
+
+const CANTIDAD_FICHAS = document.querySelectorAll('.ficha').length;
+const ACIERTOS_NECESARIOS = CANTIDAD_FICHAS / 2;
+let aciertos = 0;
 
 function mezclarArray(array) { //Fisher-Yates Sorting Algorithm
     for (let i = array.length - 1; i > 0; i--) {
@@ -16,32 +23,100 @@ function mezclarArray(array) { //Fisher-Yates Sorting Algorithm
     return array;
 }
 
-function manejarInputUsuario(e) {
+function mostrarFicha($ficha) {
+    $ficha.classList.add('mostrada');
+    $ficha.style.backgroundColor = 'rgb(87, 36, 13)';
+}
+
+function ocultarFicha($ficha) {
+    $ficha.classList.remove('mostrada');
+    $ficha.style.backgroundColor = 'sienna';
+}
+
+function manejarInputEnFicha(e) {
     const $ficha = e.target;
-    console.log($ficha);
-    
+
+    if ($ficha.classList.contains('mostrada')) {
+        return;
+    }
+
+    mostrarFicha($ficha);
+    if(!primeraFicha) {
+        primeraFicha = $ficha;
+    } else if (!segundaFicha) {
+        segundaFicha = $ficha;
+    }
+    if(primeraFicha != null && segundaFicha != null) {
+        compararFichas();
+    }  
+}
+
+function compararFichas() {
+    if (primeraFicha.name === segundaFicha.name) {
+        resetearFichas();
+        aciertos++;
+        chequearFinDeJuego();
+    }
+    else {
+        bloquearInputUsuario();
+        setTimeout(() => {
+            ocultarFicha(primeraFicha);
+            ocultarFicha(segundaFicha);
+            resetearFichas();
+            desbloquearInputUsuario();
+        }, 1000)
+    }
+}
+
+function resetearFichas() {
+    primeraFicha = null;
+    segundaFicha = null;
 }
 function desbloquearInputUsuario() {
     document.querySelectorAll('.ficha').forEach(function($ficha) {
-        $ficha.onclick = manejarInputUsuario;
-    })
+        $ficha.onclick = manejarInputEnFicha;
+    });
+}
+function bloquearInputUsuario() {
+    document.querySelectorAll('.ficha').forEach(function($ficha) {
+        $ficha.onclick = function() {
+
+        };
+    });
 }
 
-function repartirFichas(array) {
+function inicializarTablero(array) {
     const $imagenes = document.querySelectorAll('.ficha img');
     const $fichas = document.querySelectorAll('.ficha');
     for(let i = 0; i< $imagenes.length; i++) {
         $imagenes[i].src = `/img/${array[i]}.png`;
-        $imagenes[i].name = array[i];
-        $imagenes[i].id = `${$imagenes[i].name}-${i+1}`;
         $fichas[i].name = array[i];
-        
-        $imagenes[i].classList.remove('oculto'); //sacar
     }
-    
 }
 
+function reiniciarTablero() {
+    const $fichas = document.querySelectorAll('.ficha');
+    $fichas.forEach(function($ficha){
+        ocultarFicha($ficha);
+    })
+}
 function comenzarJuego() {
-    repartirFichas(escudosAleatorios);
+    escudosAleatorios = mezclarArray(escudosDuplicados);
+    inicializarTablero(escudosAleatorios);
     desbloquearInputUsuario();
+}
+
+function chequearFinDeJuego() {
+    if(aciertos === ACIERTOS_NECESARIOS) {
+        setTimeout(() => {
+            alert('Ganaste');
+            bloquearInputUsuario();
+            reiniciarTablero();
+            
+        }, 500)
+       
+    }
+    else {
+        return;
+    }
 }
