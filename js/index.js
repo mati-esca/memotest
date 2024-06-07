@@ -4,7 +4,7 @@ for(let i=0; i<escudos.length; i++) {
     escudosDuplicados.push(escudos[i]);
     escudosDuplicados.push(escudos[i]);
 }
-let escudosAleatorios = []
+let escudosAleatorios = [];
 
 document.querySelector('#comenzar').onclick = comenzarJuego;
 
@@ -25,12 +25,12 @@ function mezclarArray(array) { //Fisher-Yates Sorting Algorithm
 
 function mostrarFicha($ficha) {
     $ficha.classList.add('mostrada');
-    $ficha.style.backgroundColor = 'rgb(87, 36, 13)';
+    $ficha.style.backgroundColor = 'rgb(0, 53, 16)';
 }
 
 function ocultarFicha($ficha) {
     $ficha.classList.remove('mostrada');
-    $ficha.style.backgroundColor = 'sienna';
+    $ficha.style.backgroundColor = 'rgb(0, 116, 35)';
 }
 
 function manejarInputEnFicha(e) {
@@ -104,6 +104,7 @@ function comenzarJuego() {
     escudosAleatorios = mezclarArray(escudosDuplicados);
     inicializarTablero(escudosAleatorios);
     desbloquearInputUsuario();
+    reloj(true);
 }
 
 function chequearFinDeJuego() {
@@ -112,11 +113,46 @@ function chequearFinDeJuego() {
             alert('Ganaste');
             bloquearInputUsuario();
             reiniciarTablero();
-            
+            reloj(false);
         }, 500)
-       
     }
     else {
         return;
+    }
+}
+
+let inicioReloj;
+
+function reloj(iniciar = false) {
+    const $minutosReloj = document.querySelector('#reloj-mins');
+    const $segundosReloj = document.querySelector('#reloj-segs');
+    let segundos = 0;
+    let minutos = 0;
+    if(iniciar) {
+        inicioReloj = setInterval(() => {
+            segundos++
+            if(segundos >= 60){
+                minutos = Math.floor(segundos/60);
+                segundos = segundos%60;
+            }
+            if(segundos < 10) {
+                $segundosReloj.textContent = `0${segundos}`
+            } else {
+                $segundosReloj.textContent = segundos;
+            }
+            if(minutos < 10) {
+                $minutosReloj.textContent = `0${minutos}`
+            } else {
+                $minutosReloj.textContent = minutos;
+            }
+        },1000)
+    } else {
+        clearInterval(inicioReloj)
+        inicioReloj = null;
+
+        minutos = 0;
+        segundos = 0;
+        $minutosReloj.textContent = '00';
+        $segundosReloj.textContent = '00';
     }
 }
