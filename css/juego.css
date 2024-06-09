@@ -1,22 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 }
+
 body {
-   /* background-color: rgb(70, 230, 118);*/
-   background-image: url('/img/fondo.png');
+    /* background-color: rgb(70, 230, 118);*/
+    background-image: url('/img/fondo.png');
+    background-size: cover;
 }
+
 html {
     height: 100vh;
 }
-#juego{
+
+#juego {
     display: flex;
     justify-content: center;
 }
-#tablero  {
+
+#tablero {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -26,6 +31,7 @@ html {
     max-width: 50%;
     margin: 10px auto;
 }
+
 #tablero > div {
     width: 150px;
     height: 150px;
@@ -35,25 +41,30 @@ html {
     justify-content: center;
     align-items: center;
 }
+
 #tablero > div > img {
     position: absolute;
     width: 60%;
 }
-aside{
+
+aside {
     position: relative;
     width: 25%;
-    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
 }
-aside button{
-    font-size: 25px;
+
+aside button {
+    font-size: 20px;
     font-family: "Roboto", sans-serif;
-    padding: 20px;
+    padding: 15px;
     background-color: rgb(70, 230, 118);
     border: 4px solid rgb(0, 116, 35);
 }
+
 #reloj {
     position: relative;
     width: 25%;
@@ -62,17 +73,96 @@ aside button{
     align-items: center;
     justify-content: center;
 }
+
 #reloj p {
     font-size: 60px;
     font-family: "Roboto", sans-serif;
 }
+
 .ficha img {
     display: none;
     pointer-events: none; /* para que no quede la imagen siempre mostrada cuando la pulso en el mismo turno */
 }
+
 .ficha.mostrada img {
     display: block;
 }
-#juego.ocultar{
+
+.ficha.mostrada:hover {
+    cursor:default;
+}
+
+.ficha:hover {
+    cursor: pointer;
+}
+
+#victoria.ocultar, #juego.ocultar {
     display: none;
+}
+
+#victoria {
+    width: 70%;
+    height: 50%;
+    background-color: rgb(0, 116, 35);
+    border-radius: 35px;
+    font-family: "Roboto", sans-serif;
+    font-size: 40px;
+    gap: 15px;
+    color: rgba(200, 252, 216, 0.7);
+}
+
+#victoria input {
+    padding: 10px;
+    font-size: 15px;
+}
+
+#victoria.mostrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 1225px) {
+    #tablero > div {
+        width: 100px;
+        height: 100px;
+    }
+}
+@media (max-width: 700px) {
+    #tablero > div {
+        width: 80px;
+        height: 80px;
+    }
+    aside > button {
+        padding: 5px;
+        font-size: 16px;
+    }
+    #reloj p {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 600px) {
+    #tablero > div {
+        width: 70px;
+        height: 70px;
+    }
+
+    aside {
+        width: 100%;
+    }
+
+    aside button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    #reloj {
+        width: 100%;
+    }
+
+    #reloj p {
+        font-size: 30px;
+    }
 }

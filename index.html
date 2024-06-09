@@ -10,7 +10,13 @@
 </head>
 <body>
     <div id="container">
-        <div id="inicio" class="">
+        <!--<div id="player">
+            <audio controls autoplay hidden>
+             <source src="file.mp3" type="audio/mpeg">
+                        
+            </audio>
+        </div>-->
+        <div id="inicio" class=""> <!-- sacar clase -->
             <div id="intro">
                 <h1>Memotest: <br> Fútbol Argentino</h1>
                 <img src="/img/afa.png" alt="" width="200" id="escudo-inicio">
@@ -19,7 +25,8 @@
         </div>
         <div id="juego" class="ocultar">
             <aside>
-                <button id="comenzar">Comenzar Juego</button>
+                <button id="reiniciar">Reiniciar Juego</button>
+                <button id="volver-inicio">Volver a Inicio</button>
             </aside>
             <div id="tablero">
                 <div class="ficha">
@@ -72,7 +79,16 @@
                 </div>
             </div>
             <div id="reloj">
-                <p> <span id="reloj-mins">00</span>:<span id="reloj-segs">00</span></p>
+                <p id="tiempo"> <span id="reloj-mins">00</span>:<span id="reloj-segs">00</span></p>
+            </div>
+            
+        </div>
+        <div id="victoria" class="ocultar">
+            <h1>¡Ganaste!</h1>
+            <p>Tu tiempo fue de <span id="mostrar-tiempo"></span></p>
+            <div class="victoria-btns">
+                <input type="button" id="juego-nuevo" value="Jugar de Nuevo">
+                <input type="button" id="ir-inicio" value="Ir a Inicio">
             </div>
             
         </div>

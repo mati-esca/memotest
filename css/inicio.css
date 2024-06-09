@@ -1,39 +1,88 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-#inicio{
-    position: absolute;
+body, html {
+    margin: 0;
+    padding: 0;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+
+#inicio {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-#intro{
+
+#intro {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-content: center;
     align-items: center;
-    height: 70%;
-    width: 30%;
-    background-color: rgb(0, 116, 35) ;
+    background-color: rgb(0, 116, 35);
     text-align: center;
     border-radius: 25px;
-    font-family: "Roboto", sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
     color: rgba(200, 252, 216, 0.7);
+    width: 30%;
+    height: auto;
+    max-width: 600px;
+    max-height: 80%;
 }
-#intro > img {
-    margin-top: 10px;
+
+#intro img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
 }
+
+#intro h1 {
+    margin: 10px 0;
+    font-size: 2em;
+}
+
+#intro button {
+    margin-top: 20px;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: rgba(70, 230, 118, 0.7);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 #jugar {
-    display: block;
-    margin: 60px auto 0;
-    font-size: 30px;
-    background-color: rgb(70, 230, 118, 0.7) ;
     font-family: 'Courier New', Courier, monospace;
 }
-.ocultar {
+
+#inicio.ocultar {
     display: none;
 }
 
+@media (max-width: 890px) {
+    #intro {
+        width: 45%;
+    }
+}
+
+@media (max-width: 500px) {
+    #intro {
+        width: 80%;
+        padding: 10px;
+    }
+
+    #intro h1 {
+        font-size: 1.5em;
+    }
+
+    #intro button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}

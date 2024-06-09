@@ -7,4 +7,12 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+button:hover, input[type=button]:hover {
+    cursor: pointer;
 }
