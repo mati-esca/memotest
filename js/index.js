@@ -6,7 +6,29 @@ for(let i=0; i<escudos.length; i++) {
 }
 let escudosAleatorios = [];
 
-document.querySelector('#comenzar').onclick = comenzarJuego;
+document.querySelector('#reiniciar').onclick = function() {
+    reiniciarTablero();
+    reloj(false);
+    comenzarJuego();
+    aciertos = 0;
+}
+document.querySelector('#volver-inicio').onclick = function() {
+    reiniciarTablero();
+    reloj(false);
+    aciertos = 0;
+    document.querySelector('#juego').classList.add('ocultar');
+    document.querySelector('#inicio').classList.remove('ocultar');
+}
+document.querySelector('#juego-nuevo').onclick = function () {
+    ocultarVictoria();
+    document.querySelector('#juego').classList.remove('ocultar');
+    comenzarJuego();
+}
+document.querySelector('#ir-inicio').onclick = function() {
+    document.querySelector('#victoria').classList.remove('mostrar');
+    document.querySelector('#victoria').classList.add('ocultar');
+    document.querySelector('#inicio').classList.remove('ocultar');
+}
 
 let primeraFicha = null;
 let segundaFicha = null;
@@ -109,18 +131,32 @@ function comenzarJuego() {
 
 function chequearFinDeJuego() {
     if(aciertos === ACIERTOS_NECESARIOS) {
+        const $tiempo = document.querySelector('#tiempo').textContent;
         setTimeout(() => {
-            alert('Ganaste');
             bloquearInputUsuario();
             reiniciarTablero();
             reloj(false);
+            mostrarVictoria($tiempo);
+            aciertos = 0;
         }, 500)
     }
     else {
         return;
     }
 }
-
+function mostrarVictoria(tiempo) {
+    const $pantallaVictoria = document.querySelector('#victoria');
+    const $pantallaJuego = document.querySelector('#juego');
+    const $mostrarTiempo = document.querySelector('#mostrar-tiempo')
+    $pantallaJuego.classList.add('ocultar');
+    $pantallaVictoria.classList.add('mostrar');
+    $mostrarTiempo.textContent = tiempo; 
+}
+function ocultarVictoria() {
+    const $pantallaVictoria = document.querySelector('#victoria');
+    $pantallaVictoria.classList.remove('mostrar');
+    $pantallaVictoria.classList.add('ocultar');
+}
 let inicioReloj;
 
 function reloj(iniciar = false) {
