@@ -6,11 +6,13 @@ for(let i=0; i<escudos.length; i++) {
 }
 let escudosAleatorios = [];
 
+// LOGICA BOTONES
+
 document.querySelector('#reiniciar').onclick = function() {
     reiniciarTablero();
     reloj(false);
-    comenzarJuego();
     aciertos = 0;
+    comenzarJuego();
 }
 document.querySelector('#volver-inicio').onclick = function() {
     reiniciarTablero();
