@@ -113,7 +113,7 @@ function inicializarTablero(array) {
     const $imagenes = document.querySelectorAll('.ficha img');
     const $fichas = document.querySelectorAll('.ficha');
     for(let i = 0; i< $imagenes.length; i++) {
-        $imagenes[i].src = `/img/${array[i]}.png`;
+        $imagenes[i].src = `img/${array[i]}.png`;
         $fichas[i].name = array[i];
     }
 }
